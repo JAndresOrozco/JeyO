@@ -1,6 +1,31 @@
 <template>
 <div class="card mb-3">
+<div class="card-header">
+<i class="fas fa-table"></i>
+            Activa/Desactiva Token</div>
+    <div class="card-body">
+          <form>
+            <div class="form-group">
+            <div class="form-label-group">
+              <input type="text"v-model="user.email" id="" class="form-control" placeholder="Correo electrónico" required="required">
+              <label for="email">Correo Electrónico</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="password" v-model="user.password" id="" class="form-control" placeholder="Contraseña" required="required">
+              <label for="password">Contraseña</label>
+            </div>
+          </div>
+          <input type="button" value="Activado" class="btn btn-primary" v-on:click="active">
+          <input type="button" value="Desactivado" class="btn btn-primary" v-on:click="des">
+          
+          </form>
+          
+          </div>
+         
             <div class="card-header">
+            
           <i class="fas fa-table"></i>
             Crea, actualiza, elimina usuarios</div>
             <div class="card-body">
@@ -47,6 +72,7 @@
                     <th>Correo Electrónico</th>
                     <th>Contraseña</th>
                     <th>Estatus</th>
+                    <th>Token</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,6 +81,8 @@
                     <td>{{ elemento.email }}</td>
                     <td>{{ elemento.password }}</td>
                     <td>{{ elemento.status }}</td>
+                    <td>{{ elemento.api_token }}</td>
+                  
                   </tr>
                 </tbody>
               </table>
@@ -134,6 +162,30 @@
             this.user.password = elemento.password;
             this.user.status = elemento.status;
             
+        },
+        active: function() {
+            let self = this;
+            axios.post("/api/usuarios/login", { email: this.user.email, password: this.user.password, id: this.idx })
+                .then(response => {
+                    swal('Activado');
+                    console.log(response.data);
+                    self.list = response.data;
+                })
+                .catch(error => {
+                    swal('Error');
+                });
+        },
+        des: function() {
+            let self = this;
+            axios.post("/api/usuarios/logout", { email: this.user.email, password: this.user.password, id: this.idx })
+                .then(response => {
+                    swal('Desactivado');
+                    console.log(response.data);
+                    self.list = response.data;
+                })
+                .catch(error => {
+                    swal('Error');
+                });
         },
         
        

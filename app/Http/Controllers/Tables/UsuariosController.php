@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Tables;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use DB;
 use \App\Modelos\Usuario;
 class UsuariosController extends Controller
@@ -61,5 +64,26 @@ class UsuariosController extends Controller
             ->get();
     
         return view('usuarios',["datos" => $data]);
+    }
+    public function login(Request $request){
+        $credenciales = ["email"=>$request->email, "password"=>$request->password];
+        if(Auth::once($credenciales)){
+            $token =Str::random(60);
+            $request->user()->forceFill([
+                'api_token'=>hash('sha256',$token),
+            ])->save();
+            return response()->json(['token'=>$token],201);
+        }
+        \Abort(401);  //codigo de status
+    }
+    public function logout(Request $request){
+        $credenciales = ["email"=>$request->email, "password"=>$request->password];
+        if(Auth::once($credenciales)){
+        $request->user()->forceFill([
+            'api_token'=> null,
+        ])->save();
+        }
+        \Abort(204);  //codigo de status
+            
     }
 }

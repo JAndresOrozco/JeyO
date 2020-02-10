@@ -39,20 +39,25 @@
     export default {
     mounted() {
     },
-    data: {
-        email: '',
-        password: '',
-        status: 'activo'
+    data() {
+      return {
+          user: {
+            email: '',
+            password: '',
+          },
+      }
+       
     },
     methods:{
         login: function(){
-            axios.post("/login", {
-                email: this.email,
-                password: this.password,
-                status: this.status
-            })
+            axios.post("/login", this.user)
             .then(response =>{
+              if(response.data == 'desactivado'){
+                swal('Usuario desactivado' , 'error');
+              }else{
                 swal('Has iniciado sesión', 'Datos Correctos', 'success');
+                window.location.href = '/admin';
+              }
             })
             .catch(error=>{
                 let er = error.response.data.errors;

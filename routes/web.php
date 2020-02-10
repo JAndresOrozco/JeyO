@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     return view('admin');
 });
 
@@ -39,6 +39,7 @@ Route::get("/usuarios",'Tables\UsuariosController@index');
 Route::post("/usuarios/save",'Tables\UsuariosController@save');
 Route::post("/usuarios/update",'Tables\UsuariosController@update');
 Route::post("/usuarios/delete",'Tables\UsuariosController@delete');
+
 /* Proveedores */
 Route::get("/proveedores",'Tables\ProveedoresController@index');
 Route::post("/proveedores/save",'Tables\ProveedoresController@save');
