@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Jey O Admin - Blank Page</title>
+  <title>JeyO Admin - Proveedores</title>
 
   <!-- Custom fonts for this template-->
   <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -94,11 +94,12 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="admin">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
+      
       </li>
       <li class="nav-item">
         <a class="nav-link" href="usuarios">
@@ -142,13 +143,17 @@
           <li class="breadcrumb-item">
             <a href="admin">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Blank Page</li>
+          <li class="breadcrumb-item active">Proveedores</li>
         </ol>
 
         <!-- Page Content -->
-        <h1>Blank Page</h1>
+        <h1>Proveedores</h1>
+        <main id="app">
+          <proveedores-component datos="{{json_encode($datos)}}" ></proveedores-component>
+      </main>
+      <script src="{{ mix('/js/app.js') }}"></script>
         <hr>
-        <p>This is a great starting point for new custom pages.</p>
+        
 
       </div>
       <!-- /.container-fluid -->
@@ -157,7 +162,7 @@
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright © Your Website 2019</span>
+            <span>Copyright © Jey O 2020</span>
           </div>
         </div>
       </footer>
@@ -186,7 +191,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="login">Logout</a>
         </div>
       </div>
     </div>

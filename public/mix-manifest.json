@@ -1,7 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/fontawesome.css": "/css/fontawesome.css",
     "/css/external.css": "/css/external.css",
-    "/js/external.js": "/js/external.js",
-    "/css/fontawesome.css": "/css/fontawesome.css"
+    "/js/external.js": "/js/external.js"
 }

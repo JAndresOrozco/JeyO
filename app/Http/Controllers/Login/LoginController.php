@@ -27,14 +27,17 @@ class LoginController extends Controller
                 'api_token'=>hash('sha256',$token),
             ])->save();
             return response()->json(['token'=>$token],201);
+           
+         
         }
         \Abort(401);  //codigo de status
     }
-    public function registro(Request $request){
+    public function register(Request $request){
             $user = new \App\User();
             $user->username = $request->username;
             $user->email = $request->email;
             $user->password = bcrypt($request->password); //bcrypt para crear el hash del password
+            $user->status = 'activo';
             if($user->save())
                 return response()->json($user, 201);
                 return response()->json(null, 204);

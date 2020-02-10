@@ -14,13 +14,14 @@ class CreateSalesdetailsTable extends Migration
     public function up()
     {
         Schema::create('salesdetails', function (Blueprint $table) {
-            $table->bigIncrements('id_saledetail');
+            $table->bigIncrements('id');
             $table->date('date');
             $table->bigInteger('quantity');
             $table->float('price');
             $table->unsignedBigInteger('product_id');
 
-            $table->foreign('product_id')->references('id_product')->on('products');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->timestamps();
         });
     }
 

@@ -7,6 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import swal from 'sweetalert';
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +21,15 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('login-component', require('./components/LoginComponent.vue').default);
+Vue.component('productos-component', require('./components/ProductosComponent.vue').default);
+Vue.component('usuarios-component', require('./components/UsuariosComponent.vue').default);
+Vue.component('proveedores-component', require('./components/ProveedoresComponent.vue').default);
+Vue.component('ventas-component', require('./components/VentasComponent.vue').default);
+Vue.component('detalleventas-component', require('./components/DetalleVentasComponent.vue').default);
+Vue.component('categorias-component', require('./components/CategoriasComponent.vue').default);
+Vue.component('register-component', require('./components/RegisterComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

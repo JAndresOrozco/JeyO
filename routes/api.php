@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/registro','Login\LoginController@registro');
 Route::post('/login','Login\LoginController@login');
 Route::middleware('auth:api')->post('/logout', 'Login\LoginController@logout');
+Route::post('/mostrar','Tables\TableController@mostrarProductos');
