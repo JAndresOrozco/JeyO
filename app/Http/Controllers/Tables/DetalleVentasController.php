@@ -13,12 +13,26 @@ class DetalleVentasController extends Controller
         ->select('salesdetails.*', 'products.name as product')
         ->orderBy('id','desc')
             ->get();
-        
+
         $products = DB::table('products')
             ->select('products.*')
             ->get();
-    
+
         return view('detalle',["datos" => $data,"products" => $products]);
+    }
+
+    public function show(){
+        $data = DB::table('salesdetails')
+        ->join('products', 'salesdetails.product_id', '=', 'products.id')
+        ->select('salesdetails.*', 'products.name as product')
+        ->orderBy('id','desc')
+            ->get();
+
+        $products = DB::table('products')
+            ->select('products.*')
+            ->get();
+
+        return $data;
     }
     public function save(Request $request){
         $request->validate([
@@ -46,11 +60,11 @@ class DetalleVentasController extends Controller
     public function update(Request $request){
 
         $sale = \App\Modelos\DetalleVenta::find($request->id);
-        $sale->date = $request->sale['date'];
-        $sale->quantity = $request->sale['quantity'];
-        $sale->price = $request->sale['price'];
-        $sale->product_id = $request->sale['product_id'];
-    
+        $sale->date = $request->date;
+        $sale->quantity = $request->quantity;
+        $sale->price = $request->price;
+        $sale->product_id = $request->product_id;
+
         if($sale->save())
             $data = DB::table('salesdetails')
             ->join('products', 'salesdetails.product_id', '=', 'products.id')
@@ -68,5 +82,5 @@ class DetalleVentasController extends Controller
         return response()->json(null,422);
     }
 
-    
+
 }

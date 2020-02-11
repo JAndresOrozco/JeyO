@@ -15,7 +15,7 @@ class VentasController extends Controller
         ->select('sales.*', 'salesdetails.id as saledetail', 'users.username as user')
         ->orderBy('id','desc')
             ->get();
-        
+
         $salesdetails = DB::table('salesdetails')
             ->select('salesdetails.*')
             ->get();
@@ -23,8 +23,27 @@ class VentasController extends Controller
         $users = DB::table('users')
         ->select('users.*')
         ->get();
-    
+
         return view('ventas',["datos" => $data,"salesdetails" => $salesdetails, "users" => $users]);
+    }
+
+    public function show(){
+        $data = DB::table('sales')
+        ->join('salesdetails', 'sales.saledetail_id', '=', 'salesdetails.id')
+        ->join('users', 'sales.user_id', '=', 'users.id')
+        ->select('sales.*', 'salesdetails.id as saledetail', 'users.username as user')
+        ->orderBy('id','desc')
+            ->get();
+
+        $salesdetails = DB::table('salesdetails')
+            ->select('salesdetails.*')
+            ->get();
+
+        $users = DB::table('users')
+        ->select('users.*')
+        ->get();
+
+        return $data;
     }
     public function save(Request $request){
         $request->validate([
@@ -49,9 +68,9 @@ class VentasController extends Controller
     public function update(Request $request){
 
         $sale = \App\Modelos\Venta::find($request->id);
-        $sale->saledetail_id = $request->sale['saledetail_id'];
-        $sale->user_id = $request->sale['user_id'];
-    
+        $sale->saledetail_id = $request->saledetail_id;
+        $sale->user_id = $request->user_id;
+
         if($sale->save())
             $data = DB::table('sales')
             ->join('salesdetails', 'sales.saledetail_id', '=', 'salesdetails.id')

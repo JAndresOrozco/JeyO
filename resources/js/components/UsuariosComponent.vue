@@ -1,31 +1,19 @@
 <template>
 <div class="card mb-3">
+<input type="button" value="Cerrar Sesión" class="btn btn-danger" v-on:click="logout">
 <div class="card-header">
 <i class="fas fa-table"></i>
             Activa/Desactiva Token</div>
     <div class="card-body">
           <form>
-            <div class="form-group">
-            <div class="form-label-group">
-              <input type="text"v-model="user.email" id="" class="form-control" placeholder="Correo electrónico" required="required">
-              <label for="email">Correo Electrónico</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="form-label-group">
-              <input type="password" v-model="user.password" id="" class="form-control" placeholder="Contraseña" required="required">
-              <label for="password">Contraseña</label>
-            </div>
-          </div>
-          <input type="button" value="Activado" class="btn btn-primary" v-on:click="active">
-          <input type="button" value="Desactivado" class="btn btn-primary" v-on:click="des">
-          
+          <input type="button" value="Activar" class="btn btn-primary" v-on:click="activetoken">
+          <input type="button" value="Desactivar" class="btn btn-primary" v-on:click="inactiveToken">
           </form>
-          
+
           </div>
-         
+
             <div class="card-header">
-            
+
           <i class="fas fa-table"></i>
             Crea, actualiza, elimina usuarios</div>
             <div class="card-body">
@@ -44,7 +32,7 @@
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="text" v-model="user.password" id="" class="form-control" placeholder="Contraseña" required="required">
+              <input type="password" v-model="user.password" id="" class="form-control" placeholder="Contraseña" required="required">
               <label for="password">Contraseña</label>
             </div>
           </div>
@@ -63,7 +51,7 @@
           <i class="fas fa-table"></i>
             Usuarios registrados</div>
             <div class="card-body">
-            
+
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -82,15 +70,15 @@
                     <td>{{ elemento.password }}</td>
                     <td>{{ elemento.status }}</td>
                     <td>{{ elemento.api_token }}</td>
-                  
+
                   </tr>
                 </tbody>
               </table>
-              
+
             </div>
             </div>
 
-        
+
     </div>
 
 </template>
@@ -161,34 +149,35 @@
             this.user.email = elemento.email;
             this.user.password = elemento.password;
             this.user.status = elemento.status;
-            
-        },
-        active: function() {
-            let self = this;
-            axios.post("/api/usuarios/login", { email: this.user.email, password: this.user.password, id: this.idx })
+
+        },activetoken: function() {
+            axios.post("/usuarios/activarToken")
                 .then(response => {
-                    swal('Activado');
-                    console.log(response.data);
-                    self.list = response.data;
+                   swal("Activado","Token: " + response.data.token);
                 })
                 .catch(error => {
-                    swal('Error');
+                    console.log(error.response.data);
                 });
         },
-        des: function() {
-            let self = this;
-            axios.post("/api/usuarios/logout", { email: this.user.email, password: this.user.password, id: this.idx })
+        inactiveToken: function() {
+            axios.post("/usuarios/desactivarToken")
                 .then(response => {
-                    swal('Desactivado');
-                    console.log(response.data);
-                    self.list = response.data;
+                    swal("Desactivado","Token removido ");
                 })
                 .catch(error => {
-                    swal('Error');
+                    console.log(error.response.data);
                 });
         },
-        
-       
+        logout: function() {
+            axios.post("/logout")
+                .then(response => {
+                    window.location.href = "/login";
+                })
+                .catch(error => {
+                    console.log(error);
+                    window.location.href = "/login";
+                });
+        },
     }
 };
 </script>

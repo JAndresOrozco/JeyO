@@ -29,7 +29,7 @@ Vue.component('ventas-component', require('./components/VentasComponent.vue').de
 Vue.component('detalleventas-component', require('./components/DetalleVentasComponent.vue').default);
 Vue.component('categorias-component', require('./components/CategoriasComponent.vue').default);
 Vue.component('register-component', require('./components/RegisterComponent.vue').default);
-Vue.component('logout-component', require('./components/LogoutComponent.vue').default);
+
 
 
 /**

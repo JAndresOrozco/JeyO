@@ -40,7 +40,7 @@ class UsuariosController extends Controller
         $user->email = $request->user['email'];
         $user->password = $request->user['password'];
         $user->status = $request->user['status'];
-    
+
         if($user->save())
             $data = DB::table('users')
             ->select('users.*')
@@ -62,28 +62,34 @@ class UsuariosController extends Controller
         ->select('users.*')
         ->orderBy('id','desc')
             ->get();
-    
+
         return view('usuarios',["datos" => $data]);
     }
-    public function login(Request $request){
-        $credenciales = ["email"=>$request->email, "password"=>$request->password];
-        if(Auth::once($credenciales)){
-            $token =Str::random(60);
-            $request->user()->forceFill([
-                'api_token'=>hash('sha256',$token),
-            ])->save();
-            return response()->json(['token'=>$token],201);
-        }
-        \Abort(401);  //codigo de status
+    public function show(){
+        $data = DB::table('users')
+        ->select('users.*')
+        ->orderBy('id','desc')
+            ->get();
+
+        return $data;
     }
-    public function logout(Request $request){
-        $credenciales = ["email"=>$request->email, "password"=>$request->password];
-        if(Auth::once($credenciales)){
-        $request->user()->forceFill([
-            'api_token'=> null,
+    public function activarToken(Request $request){
+        $token = Str::random(80);
+
+        Auth::user()->forceFill([
+            'remember_token' => $token,
+            'api_token' => hash('sha256', $token),
         ])->save();
-        }
-        \Abort(204);  //codigo de status
-            
+
+        return ['token' => $token];
+    }
+    public function desactivarToken(Request $request){
+        Auth::user()->forceFill([
+            'remember_token' => null,
+            'api_token' => null,
+        ])->save();
+
+        return 'done';
+
     }
 }

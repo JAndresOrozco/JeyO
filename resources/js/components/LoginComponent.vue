@@ -6,29 +6,20 @@
         <form>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="email" id="email" v-model="email" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+              <input type="email" id="email" v-model="user.email" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
               <label for="email">Correo Electrónico</label>
             </div>
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="password" v-model="password" id="password" class="form-control" placeholder="Password" required="required">
+              <input type="password" v-model="user.password" id="password" class="form-control" placeholder="Password" required="required">
               <label for="password">Contraseña</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me">
-                Recordar contraseña
-              </label>
             </div>
           </div>
           <button type="button" class="btn btn-primary btn-block" @click="login()" >Login</button>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="register">Registrarse</a>
-          <a class="d-block small" href="forgot-password.html">¿Olvidaste contraseña?</a>
         </div>
       </div>
     </div>
@@ -42,11 +33,11 @@
     data() {
       return {
           user: {
-            email: '',
-            password: '',
+            email:null,
+            password:null,
           },
       }
-       
+
     },
     methods:{
         login: function(){
@@ -56,7 +47,7 @@
                 swal('Usuario desactivado' , 'error');
               }else{
                 swal('Has iniciado sesión', 'Datos Correctos', 'success');
-                window.location.href = '/admin';
+                window.location.href = '/';
               }
             })
             .catch(error=>{
@@ -71,7 +62,7 @@
                 swal('Error', mensaje)
             })
         },
-        
+
         }
     }
 

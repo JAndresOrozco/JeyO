@@ -39,16 +39,16 @@
                   <tr v-for="(elemento, index) in list" :key="elemento.id" v-on:click="load(elemento, index)">
                     <td>{{ elemento.name }}</td>
                     <td>{{ elemento.description }}</td>
-                    
+
                   </tr>
                 </tbody>
               </table>
             </div>
             </div>
-          
-     
 
-        
+
+
+
     </div>
 
 </template>
@@ -116,9 +116,9 @@
             this.category.description = elemento.description;
             this.idxLista = index;
             console.log(this.idx);
-            
+
         },
-       
+
     }
 };
 </script>

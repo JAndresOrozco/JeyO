@@ -24,7 +24,7 @@ class ProveedoresController extends Controller
 
         $supplier = \App\Modelos\Proveedor::find($request->id);
         $supplier->name = $request->name;
-    
+
         if($supplier->save())
             return response()->json($supplier,202);
         return response()->json(null,422);
@@ -39,7 +39,13 @@ class ProveedoresController extends Controller
 
     public function index(){
         $data = \App\Modelos\Proveedor::all()->toArray();
-    
+
         return view('proveedores',["datos" => $data]);
+    }
+
+    public function show(){
+        $data = \App\Modelos\Proveedor::all()->toArray();
+
+        return $data;
     }
 }

@@ -12,6 +12,10 @@ class CategoriasController extends Controller
         $data = \App\Modelos\Categoria::all()->toArray();
         return view('categorias',["datos" => $data]);
     }
+    public function show(){
+        $data = \App\Modelos\Categoria::all()->toArray();
+        return $data;
+    }
 
     public function save(Request $request){
         $request->validate([
@@ -22,7 +26,7 @@ class CategoriasController extends Controller
         $category = new \App\Modelos\Categoria();
         $category->name = $request->name;
         $category->description = $request->description;
-        
+
         if($category->save())
             return response()->json($category,202);
         return response()->json(null,422);
@@ -33,7 +37,7 @@ class CategoriasController extends Controller
         $category = \App\Modelos\Categoria::find($request->id);
         $category->name = $request->name;
         $category->description = $request->description;
-    
+
         if($category->save())
             return response()->json($category,202);
         return response()->json(null,422);
@@ -46,5 +50,5 @@ class CategoriasController extends Controller
         return response()->json(null,422);
     }
 
-    
+
 }

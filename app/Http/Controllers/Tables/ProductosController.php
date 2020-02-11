@@ -42,12 +42,12 @@ class ProductosController extends Controller
     public function update(Request $request){
 
         $product = \App\Modelos\Producto::find($request->id);
-        $product->name = $request->product['name'];
-        $product->description = $request->product['description'];
-        $product->category_id = $request->product['category_id'];
-        $product->price = $request->product['price'];
-        $product->supplier_id = $request->product['supplier_id'];
-    
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+        $product->supplier_id = $request->supplier_id;
+
         if($product->save())
             $data = DB::table('products')
             ->join('categories', 'products.category_id', '=', 'categories.id')
@@ -73,7 +73,7 @@ class ProductosController extends Controller
             ->select('products.*', 'categories.name as category', 'suppliers.name as supplier')
             ->orderBy('id','desc')
             ->get();
-        
+
         $categories = DB::table('categories')
             ->select('categories.*')
             ->get();
@@ -81,7 +81,26 @@ class ProductosController extends Controller
         $suppliers = DB::table('suppliers')
             ->select('suppliers.*')
             ->get();
-    
+
         return view('productos',["datos" => $data,"categories" => $categories, "suppliers" => $suppliers]);
+    }
+
+    public function show(){
+        $data = DB::table('products')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
+            ->select('products.*', 'categories.name as category', 'suppliers.name as supplier')
+            ->orderBy('id','desc')
+            ->get();
+
+        $categories = DB::table('categories')
+            ->select('categories.*')
+            ->get();
+
+        $suppliers = DB::table('suppliers')
+            ->select('suppliers.*')
+            ->get();
+
+        return $data;
     }
 }
