@@ -16,7 +16,7 @@ class UsuariosController extends Controller
             "username"=>"required|String",
             "email"=>"required|String",
             "password"=>"required",
-            "status"=>"required|String"
+            "status"=>"required|Integer"
         ]);
 
         $user = new \App\Modelos\Usuario();
@@ -38,7 +38,7 @@ class UsuariosController extends Controller
         $user = \App\Modelos\Usuario::find($request->id);
         $user->username = $request->user['username'];
         $user->email = $request->user['email'];
-        $user->password = $request->user['password'];
+        $user->password = bcrypt($request->password);
         $user->status = $request->user['status'];
 
         if($user->save())

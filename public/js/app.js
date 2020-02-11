@@ -39815,7 +39815,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("label", { attrs: { for: "status" } }, [_vm._v("Estatus")])
+            _c("label", { attrs: { for: "status" } }, [_vm._v("Activo")])
           ])
         ]),
         _vm._v(" "),
@@ -39872,9 +39872,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(elemento.password))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(elemento.status))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(elemento.api_token))])
+                    _c("td", [_vm._v(_vm._s(elemento.status))])
                   ]
                 )
               }),
@@ -39926,9 +39924,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Contraseña")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estatus")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Token")])
+        _c("th", [_vm._v("Activo")])
       ])
     ])
   }

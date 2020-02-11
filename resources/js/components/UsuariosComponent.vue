@@ -39,7 +39,7 @@
           <div class="form-group">
             <div class="form-label-group">
               <input type="text" v-model="user.status" id="" class="form-control" placeholder="Estatus" required="required">
-              <label for="status">Estatus</label>
+              <label for="status">Activo</label>
             </div>
           </div>
            <input type="button" value="Guardar" class="btn btn-success" v-on:click="save">
@@ -59,8 +59,8 @@
                     <th>Usuario</th>
                     <th>Correo Electrónico</th>
                     <th>Contraseña</th>
-                    <th>Estatus</th>
-                    <th>Token</th>
+                    <th>Activo</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -69,7 +69,7 @@
                     <td>{{ elemento.email }}</td>
                     <td>{{ elemento.password }}</td>
                     <td>{{ elemento.status }}</td>
-                    <td>{{ elemento.api_token }}</td>
+
 
                   </tr>
                 </tbody>

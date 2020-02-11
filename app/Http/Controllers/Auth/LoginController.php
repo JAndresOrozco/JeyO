@@ -44,7 +44,7 @@ class LoginController extends Controller
     }
 
     public function authenticated(Request $request, $user){
-        if($user->status == 'desactivado'){
+        if($user->status == 0){
             Auth::logout($request);
 
             return 'desactivado';
