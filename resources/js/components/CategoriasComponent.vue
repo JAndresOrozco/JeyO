@@ -79,7 +79,14 @@
                     self.idx = response.data.id;
                 })
                 .catch(error => {
-                   swal('Error', "Datos incorrectos");
+                   let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('name')){
+                        mensaje = "Campo nombre vacio";
+                    }else if(er.hasOwnProperty('description')){
+                      mensaje= "Campo descripción vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         update: function() {
@@ -92,7 +99,14 @@
                     self.list[self.idxLista].description = response.data.description;
                 })
                 .catch(error => {
-                    console.log(error);
+                    let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('name')){
+                        mensaje = "Campo nombre vacio";
+                    }else if(er.hasOwnProperty('description')){
+                      mensaje= "Campo descripción vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         dele: function() {

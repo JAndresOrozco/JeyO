@@ -1986,7 +1986,16 @@ __webpack_require__.r(__webpack_exports__);
         self.list.push(response.data);
         self.idx = response.data.id;
       })["catch"](function (error) {
-        swal('Error', "Datos incorrectos");
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('name')) {
+          mensaje = "Campo nombre vacio";
+        } else if (er.hasOwnProperty('description')) {
+          mensaje = "Campo descripción vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     update: function update() {
@@ -2001,7 +2010,16 @@ __webpack_require__.r(__webpack_exports__);
         self.list[self.idxLista].name = response.data.name;
         self.list[self.idxLista].description = response.data.description;
       })["catch"](function (error) {
-        console.log(error);
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('name')) {
+          mensaje = "Campo nombre vacio";
+        } else if (er.hasOwnProperty('description')) {
+          mensaje = "Campo descripción vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     dele: function dele() {
@@ -2131,7 +2149,18 @@ __webpack_require__.r(__webpack_exports__);
         self.list.push(response.data);
         self.idx = response.data.id;
       })["catch"](function (error) {
-        swal('Error', "Datos incorrectos");
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('quantity')) {
+          mensaje = "Campo cantidad vacio";
+        } else if (er.hasOwnProperty('price')) {
+          mensaje = "Campo precio vacio";
+        } else if (er.hasOwnProperty('product_id')) {
+          mensaje = "Campo producto vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     update: function update() {
@@ -2147,7 +2176,18 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data);
         self.list = response.data;
       })["catch"](function (error) {
-        console.log(error);
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('quantity')) {
+          mensaje = "Campo cantidad vacio";
+        } else if (er.hasOwnProperty('price')) {
+          mensaje = "Campo precio vacio";
+        } else if (er.hasOwnProperty('product_id')) {
+          mensaje = "Campo folio de producto vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     dele: function dele() {
@@ -2402,7 +2442,22 @@ __webpack_require__.r(__webpack_exports__);
         self.list.push(response.data);
         self.idx = response.data.id;
       })["catch"](function (error) {
-        swal('Error', "Datos incorrectos");
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('name')) {
+          mensaje = "Campo nombre vacio";
+        } else if (er.hasOwnProperty('description')) {
+          mensaje = "Campo descripción vacio";
+        } else if (er.hasOwnProperty('category_id')) {
+          mensaje = "Campo categoria vacio";
+        } else if (er.hasOwnProperty('price')) {
+          mensaje = "Campo precio vacio";
+        } else if (er.hasOwnProperty('supplier_id')) {
+          mensaje = "Campo proveedor vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     update: function update() {
@@ -2420,7 +2475,22 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data);
         self.list = response.data;
       })["catch"](function (error) {
-        console.log(error);
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('name')) {
+          mensaje = "Campo nombre vacio";
+        } else if (er.hasOwnProperty('description')) {
+          mensaje = "Campo descripción vacio";
+        } else if (er.hasOwnProperty('category_id')) {
+          mensaje = "Campo categoria vacio";
+        } else if (er.hasOwnProperty('price')) {
+          mensaje = "Campo precio vacio";
+        } else if (er.hasOwnProperty('supplier_id')) {
+          mensaje = "Campo proveedor vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     dele: function dele() {
@@ -2527,7 +2597,14 @@ __webpack_require__.r(__webpack_exports__);
         self.list.push(response.data);
         self.idx = response.data.id;
       })["catch"](function (error) {
-        swal('Error', "Datos incorrectos");
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('name')) {
+          mensaje = "Campo nombre vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     update: function update() {
@@ -2543,7 +2620,14 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data);
         self.list[_this.idxLista].name = response.data.name;
       })["catch"](function (error) {
-        swal('Error');
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('name')) {
+          mensaje = "Campo nombre vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     dele: function dele() {
@@ -2783,20 +2867,50 @@ __webpack_require__.r(__webpack_exports__);
         self.list.push(response.data);
         self.idx = response.data.id;
       })["catch"](function (error) {
-        swal('Error', "Datos incorrectos");
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('username')) {
+          mensaje = "Campo usuario vacio";
+        } else if (er.hasOwnProperty('email')) {
+          mensaje = "Campo correo electrónico vacio";
+        } else if (er.hasOwnProperty('password')) {
+          mensaje = "Campo contraseña vacio";
+        } else if (er.hasOwnProperty('status')) {
+          mensaje = "Campo status vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     update: function update() {
       var self = this;
       axios.post("/usuarios/update", {
         user: this.user,
-        id: this.idx
+        id: this.idx,
+        username: this.user.username,
+        email: this.user.email,
+        password: this.user.password,
+        status: this.user.status
       }).then(function (response) {
         swal('Actualizado correctamente');
         console.log(response.data);
         self.list = response.data;
       })["catch"](function (error) {
-        console.log(error);
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('username')) {
+          mensaje = "Campo usuario vacio";
+        } else if (er.hasOwnProperty('email')) {
+          mensaje = "Campo correo electrónico vacio";
+        } else if (er.hasOwnProperty('password')) {
+          mensaje = "Campo contraseña vacio";
+        } else if (er.hasOwnProperty('status')) {
+          mensaje = "Campo status vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     dele: function dele() {
@@ -2940,7 +3054,16 @@ __webpack_require__.r(__webpack_exports__);
         self.list.push(response.data);
         self.idx = response.data.id;
       })["catch"](function (error) {
-        swal('Error', "Datos incorrectos");
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('saledetail_id')) {
+          mensaje = "Campo folio vacio";
+        } else if (er.hasOwnProperty('user_id')) {
+          mensaje = "Campo usuario vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     update: function update() {
@@ -2955,7 +3078,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data);
         self.list = response.data;
       })["catch"](function (error) {
-        swal('Error');
+        var er = error.response.data.errors;
+        var mensaje;
+
+        if (er.hasOwnProperty('saledetail_id')) {
+          mensaje = "Campo folio vacio";
+        } else if (er.hasOwnProperty('user_id')) {
+          mensaje = "Campo usuario vacio";
+        }
+
+        swal('Error', mensaje);
       });
     },
     dele: function dele() {
@@ -38560,7 +38692,9 @@ var render = function() {
       _c("div", { staticClass: "card-body" }, [
         _c("form", [
           _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")]),
+            _c("label", { attrs: { for: "name" } }, [
+              _vm._v("Folio del producto")
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-label-group" }, [
               _c("input", {

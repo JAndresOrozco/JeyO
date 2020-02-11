@@ -70,7 +70,12 @@
                     self.idx = response.data.id;
                 })
                 .catch(error => {
-                   swal('Error', "Datos incorrectos");
+                   let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('name')){
+                        mensaje = "Campo nombre vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         update: function() {
@@ -82,7 +87,12 @@
                     self.list[this.idxLista].name = response.data.name;
                 })
                 .catch(error => {
-                    swal('Error');
+                    let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('name')){
+                        mensaje = "Campo nombre vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         dele: function() {

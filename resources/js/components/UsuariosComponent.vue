@@ -112,19 +112,42 @@
                     self.idx = response.data.id;
                 })
                 .catch(error => {
-                   swal('Error', "Datos incorrectos");
+                   let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('username')){
+                        mensaje = "Campo usuario vacio";
+                    }else if(er.hasOwnProperty('email')){
+                        mensaje = "Campo correo electrónico vacio";
+                    }else if(er.hasOwnProperty('password')){
+                        mensaje = "Campo contraseña vacio";
+                    }else if(er.hasOwnProperty('status')){
+                        mensaje = "Campo status vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         update: function() {
             let self = this;
-            axios.post("/usuarios/update", { user: this.user, id: this.idx })
+            axios.post("/usuarios/update", { user: this.user, id: this.idx, username: this.user.username, email: this.user.email,
+            password: this.user.password, status: this.user.status })
                 .then(response => {
                     swal('Actualizado correctamente');
                     console.log(response.data);
                     self.list = response.data;
                 })
                 .catch(error => {
-                    console.log(error);
+                    let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('username')){
+                        mensaje = "Campo usuario vacio";
+                    }else if(er.hasOwnProperty('email')){
+                        mensaje = "Campo correo electrónico vacio";
+                    }else if(er.hasOwnProperty('password')){
+                        mensaje = "Campo contraseña vacio";
+                    }else if(er.hasOwnProperty('status')){
+                        mensaje = "Campo status vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         dele: function() {

@@ -56,7 +56,11 @@ class DetalleVentasController extends Controller
     }
 
     public function update(Request $request){
-
+        $request->validate([
+            "quantity"=>"required|Integer",
+            "price"=>"required|Integer",
+            "product_id"=>"required|Integer"
+        ]);
         $sale = \App\Modelos\DetalleVenta::find($request->id);
         $sale->quantity = $request->quantity;
         $sale->price = $request->price;

@@ -7,7 +7,7 @@
             <div class="card-body">
             <form>
           <div class="form-group">
-          <label for="name">Nombre</label>
+          <label for="name">Folio del producto</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="sale.product_id" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus">
             </div>
@@ -94,7 +94,16 @@
                     self.idx = response.data.id;
                 })
                 .catch(error => {
-                   swal('Error', "Datos incorrectos");
+                   let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('quantity')){
+                        mensaje = "Campo cantidad vacio";
+                    }else if(er.hasOwnProperty('price')){
+                      mensaje = "Campo precio vacio";
+                    }else if(er.hasOwnProperty('product_id')){
+                      mensaje = "Campo producto vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         update: function() {
@@ -106,7 +115,16 @@
                     self.list = response.data;
                 })
                 .catch(error => {
-                    console.log(error);
+                    let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('quantity')){
+                        mensaje = "Campo cantidad vacio";
+                    }else if(er.hasOwnProperty('price')){
+                      mensaje = "Campo precio vacio";
+                    }else if(er.hasOwnProperty('product_id')){
+                      mensaje = "Campo folio de producto vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         dele: function() {

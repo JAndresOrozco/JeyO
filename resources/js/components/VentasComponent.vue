@@ -85,7 +85,14 @@
                     self.idx = response.data.id;
                 })
                 .catch(error => {
-                   swal('Error', "Datos incorrectos");
+                   let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('saledetail_id')){
+                        mensaje = "Campo folio vacio";
+                    }else if(er.hasOwnProperty('user_id')){
+                        mensaje = "Campo usuario vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         update: function() {
@@ -100,7 +107,14 @@
 
                 })
                 .catch(error => {
-                    swal('Error');
+                    let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('saledetail_id')){
+                        mensaje = "Campo folio vacio";
+                    }else if(er.hasOwnProperty('user_id')){
+                        mensaje = "Campo usuario vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         dele: function() {

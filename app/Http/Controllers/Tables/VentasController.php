@@ -66,6 +66,10 @@ class VentasController extends Controller
     }
 
     public function update(Request $request){
+        $request->validate([
+            "saledetail_id"=>"required|Integer",
+            "user_id" => "required|Integer"
+        ]);
 
         $sale = \App\Modelos\Venta::find($request->id);
         $sale->saledetail_id = $request->saledetail_id;

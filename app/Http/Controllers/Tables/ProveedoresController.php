@@ -21,6 +21,9 @@ class ProveedoresController extends Controller
     }
 
     public function update(Request $request){
+        $request->validate([
+            "name"=>"required|String",
+        ]);
 
         $supplier = \App\Modelos\Proveedor::find($request->id);
         $supplier->name = $request->name;

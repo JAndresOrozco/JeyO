@@ -40,7 +40,13 @@ class ProductosController extends Controller
     }
 
     public function update(Request $request){
-
+        $request->validate([
+            "name"=>"required|String",
+            "description"=>"required|String",
+            "category_id"=>"required|Integer",
+            "price"=>"required|Integer",
+            "supplier_id"=>"required|Integer"
+        ]);
         $product = \App\Modelos\Producto::find($request->id);
         $product->name = $request->name;
         $product->description = $request->description;

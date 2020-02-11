@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/admin', function (Request $request) {
-    return view('admin');
-});
+// Route::middleware('auth:api')->get('/admin', function (Request $request) {
+//     return view('admin');
+// });
 // Route::post('/registro','Login\LoginController@registro');
 // Route::post('/login','Login\LoginController@login');
 // Route::middleware('auth:api')->post('/logout', 'Login\LoginController@logout');

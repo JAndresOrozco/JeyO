@@ -34,7 +34,12 @@ class UsuariosController extends Controller
     }
 
     public function update(Request $request){
-
+        $request->validate([
+            "username"=>"required|String",
+            "email"=>"required|String",
+            "password"=>"required",
+            "status"=>"required|Integer"
+        ]);
         $user = \App\Modelos\Usuario::find($request->id);
         $user->username = $request->user['username'];
         $user->email = $request->user['email'];

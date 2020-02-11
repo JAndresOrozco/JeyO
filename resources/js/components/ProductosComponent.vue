@@ -112,7 +112,20 @@
                     self.idx = response.data.id;
                 })
                 .catch(error => {
-                   swal('Error', "Datos incorrectos");
+                   let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('name')){
+                        mensaje = "Campo nombre vacio";
+                    }else if(er.hasOwnProperty('description')){
+                      mensaje = "Campo descripción vacio";
+                    }else if(er.hasOwnProperty('category_id')){
+                      mensaje = "Campo categoria vacio";
+                    }else if(er.hasOwnProperty('price')){
+                      mensaje = "Campo precio vacio";
+                    }else if(er.hasOwnProperty('supplier_id')){
+                      mensaje = "Campo proveedor vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         update: function() {
@@ -128,7 +141,20 @@
                     self.list = response.data;
                 })
                 .catch(error => {
-                    console.log(error);
+                    let er = error.response.data.errors;
+                    let mensaje;
+                    if(er.hasOwnProperty('name')){
+                        mensaje = "Campo nombre vacio";
+                    }else if(er.hasOwnProperty('description')){
+                      mensaje = "Campo descripción vacio";
+                    }else if(er.hasOwnProperty('category_id')){
+                      mensaje = "Campo categoria vacio";
+                    }else if(er.hasOwnProperty('price')){
+                      mensaje = "Campo precio vacio";
+                    }else if(er.hasOwnProperty('supplier_id')){
+                      mensaje = "Campo proveedor vacio";
+                    }
+                    swal('Error', mensaje)
                 });
         },
         dele: function() {

@@ -33,7 +33,10 @@ class CategoriasController extends Controller
     }
 
     public function update(Request $request){
-
+        $request->validate([
+            "name"=>"required|String",
+            "description"=>"required"
+        ]);
         $category = \App\Modelos\Categoria::find($request->id);
         $category->name = $request->name;
         $category->description = $request->description;
