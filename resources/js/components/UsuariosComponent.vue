@@ -19,27 +19,27 @@
             <div class="card-body">
             <form>
           <div class="form-group">
+          <label for="username">Usuario</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="user.username" class="form-control" placeholder="Usuario" required="required" autofocus="autofocus">
-              <label for="username">Usuario</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="email">Correo Electrónico</label>
             <div class="form-label-group">
               <input type="text"v-model="user.email" id="" class="form-control" placeholder="Correo electrónico" required="required">
-              <label for="email">Correo Electrónico</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="password">Contraseña</label>
             <div class="form-label-group">
               <input type="password" v-model="user.password" id="" class="form-control" placeholder="Contraseña" required="required">
-              <label for="password">Contraseña</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="status">Activo</label>
             <div class="form-label-group">
               <input type="text" v-model="user.status" id="" class="form-control" placeholder="Estatus" required="required">
-              <label for="status">Activo</label>
             </div>
           </div>
            <input type="button" value="Guardar" class="btn btn-success" v-on:click="save">

@@ -6,15 +6,15 @@
             <div class="card-body">
             <form>
           <div class="form-group">
+          <label for="folio">Folio</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="sale.saledetail_id" class="form-control" placeholder="Folio" required="required" autofocus="autofocus">
-              <label for="folio">Folio</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="usuario">Usuario</label>
             <div class="form-label-group">
               <input type="text"v-model="sale.user_id" id="" class="form-control" placeholder="Usuario" required="required">
-              <label for="usuario">Usuario</label>
             </div>
           </div>
            <input type="button" value="Guardar" class="btn btn-success" v-on:click="save">
@@ -37,8 +37,8 @@
                 </thead>
                 <tbody>
                   <tr v-for="(elemento, index) in list" :key="elemento.id" v-on:click="load(elemento, index)">
-                    <td>{{ elemento.saledetail }}</td>
-                    <td>{{ elemento.user }}</td>
+                    <td>{{ elemento.saledetail}}</td>
+                    <td>{{ elemento.user}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -68,8 +68,8 @@
             listSalesdetails: null,
             listUsers: null,
             sale: {
-                saledetail: null,
-                user: null,
+                saledetail_id: null,
+                user_id: null,
             },
             idxLista: null,
             idx: null
@@ -90,14 +90,17 @@
         },
         update: function() {
             let self = this;
-            axios.post("/ventas/update", { sale: this.sale, id: this.idx })
+            axios.post("/ventas/update", { sale: this.sale, id: this.idx
+            , saledetail_id: this.sale.saledetail_id, user_id: this.sale.user_id
+             })
                 .then(response => {
                     swal('Actualizado correctamente');
                     console.log(response.data);
                     self.list = response.data;
+
                 })
                 .catch(error => {
-                    console.log(error);
+                    swal('Error');
                 });
         },
         dele: function() {

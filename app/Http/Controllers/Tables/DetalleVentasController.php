@@ -36,14 +36,12 @@ class DetalleVentasController extends Controller
     }
     public function save(Request $request){
         $request->validate([
-            "date"=>"required|Date",
             "quantity"=>"required|Integer",
             "price"=>"required|Integer",
             "product_id"=>"required|Integer"
         ]);
 
         $sale = new \App\Modelos\DetalleVenta();
-        $sale->date = $request->date;
         $sale->quantity = $request->quantity;
         $sale->price = $request->price;
         $sale->product_id = $request->product_id;
@@ -60,7 +58,6 @@ class DetalleVentasController extends Controller
     public function update(Request $request){
 
         $sale = \App\Modelos\DetalleVenta::find($request->id);
-        $sale->date = $request->date;
         $sale->quantity = $request->quantity;
         $sale->price = $request->price;
         $sale->product_id = $request->product_id;

@@ -6,9 +6,9 @@
             <div class="card-body">
             <form>
           <div class="form-group">
+          <label for="name">Proveedor</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="supplier.name" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus">
-              <label for="name">Proveedor</label>
             </div>
           </div>
            <input type="button" value="Guardar" class="btn btn-success" v-on:click="save">
@@ -57,7 +57,7 @@
                 name: null,
             },
             idxLista: null,
-            idx: null
+            idx: null,
         };
     },
     methods: {
@@ -75,14 +75,14 @@
         },
         update: function() {
             let self = this;
-            axios.post("/proveedores/update", { supplier: this.supplier,name: this.supplier.name, id: this.idx })
+            axios.post("/proveedores/update", { supplier: this.supplier, id: this.idx, name: this.supplier.name })
                 .then(response => {
                     swal('Actualizado correctamente');
                     console.log(response.data);
-                    self.list = response.data;
+                    self.list[this.idxLista].name = response.data.name;
                 })
                 .catch(error => {
-                    console.log(error);
+                    swal('Error');
                 });
         },
         dele: function() {

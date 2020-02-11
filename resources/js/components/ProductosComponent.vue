@@ -6,33 +6,33 @@
             <div class="card-body">
             <form>
           <div class="form-group">
+          <label for="name">Nombre</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="product.name" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus">
-              <label for="name">Nombre</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="email">Descripción</label>
             <div class="form-label-group">
               <input type="text"v-model="product.description" id="" class="form-control" placeholder="Descripción" required="required">
-              <label for="email">Descripción</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="category">Categoria</label>
             <div class="form-label-group">
               <input type="text" v-model="product.category_id" id="" class="form-control" placeholder="Categoria" required="required">
-              <label for="category">Categoria</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="price">Precio</label>
             <div class="form-label-group">
               <input type="text" v-model="product.price" id="" class="form-control" placeholder="Precio" required="required">
-              <label for="price">Precio</label>
             </div>
           </div>
           <div class="form-group">
+              <label for="supplier">Proveedor</label>
             <div class="form-label-group">
               <input type="text" v-model="product.supplier_id" id="" class="form-control" placeholder="Proveedor" required="required">
-              <label for="supplier">Proveedor</label>
             </div>
           </div>
            <input type="button" value="Guardar" class="btn btn-success" v-on:click="save">
@@ -118,7 +118,10 @@
         update: function() {
             let self = this;
      
-            axios.post("/productos/update", { product: this.product, id: this.idx })
+            axios.post("/productos/update", { product: this.product, id: this.idx 
+            , name: this.product.name, description: this.product.description, category_id: this.product.category_id,
+            price: this.product.price, supplier_id: this.product.supplier_id
+            })
                 .then(response => {
                     swal('Actualizado correctamente');
                     console.log(response.data);

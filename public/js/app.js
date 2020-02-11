@@ -2102,13 +2102,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["datos", "products"],
   mounted: function mounted() {
@@ -2122,7 +2115,6 @@ __webpack_require__.r(__webpack_exports__);
       list: null,
       listProducts: null,
       sale: {
-        date: null,
         quantity: null,
         price: null,
         product_id: null
@@ -2146,7 +2138,10 @@ __webpack_require__.r(__webpack_exports__);
       var self = this;
       axios.post("/detalleventas/update", {
         sale: this.sale,
-        id: this.idx
+        id: this.idx,
+        price: this.sale.price,
+        quantity: this.sale.quantity,
+        product_id: this.sale.product_id
       }).then(function (response) {
         swal('Actualizado correctamente');
         console.log(response.data);
@@ -2171,7 +2166,6 @@ __webpack_require__.r(__webpack_exports__);
       console.log(elemento, index);
       this.idxLista = index;
       this.idx = elemento.id;
-      this.sale.date = elemento.date;
       this.sale.quantity = elemento.quantity;
       this.sale.price = elemento.price;
       this.sale.product_id = elemento.product_id;
@@ -2415,7 +2409,12 @@ __webpack_require__.r(__webpack_exports__);
       var self = this;
       axios.post("/productos/update", {
         product: this.product,
-        id: this.idx
+        id: this.idx,
+        name: this.product.name,
+        description: this.product.description,
+        category_id: this.product.category_id,
+        price: this.product.price,
+        supplier_id: this.product.supplier_id
       }).then(function (response) {
         swal('Actualizado correctamente');
         console.log(response.data);
@@ -2532,17 +2531,19 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     update: function update() {
+      var _this = this;
+
       var self = this;
       axios.post("/proveedores/update", {
         supplier: this.supplier,
-        name: this.supplier.name,
-        id: this.idx
+        id: this.idx,
+        name: this.supplier.name
       }).then(function (response) {
         swal('Actualizado correctamente');
         console.log(response.data);
-        self.list = response.data;
+        self.list[_this.idxLista].name = response.data.name;
       })["catch"](function (error) {
-        console.log(error);
+        swal('Error');
       });
     },
     dele: function dele() {
@@ -2924,8 +2925,8 @@ __webpack_require__.r(__webpack_exports__);
       listSalesdetails: null,
       listUsers: null,
       sale: {
-        saledetail: null,
-        user: null
+        saledetail_id: null,
+        user_id: null
       },
       idxLista: null,
       idx: null
@@ -2946,13 +2947,15 @@ __webpack_require__.r(__webpack_exports__);
       var self = this;
       axios.post("/ventas/update", {
         sale: this.sale,
-        id: this.idx
+        id: this.idx,
+        saledetail_id: this.sale.saledetail_id,
+        user_id: this.sale.user_id
       }).then(function (response) {
         swal('Actualizado correctamente');
         console.log(response.data);
         self.list = response.data;
       })["catch"](function (error) {
-        console.log(error);
+        swal('Error');
       });
     },
     dele: function dele() {
@@ -38367,6 +38370,8 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c("form", [
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -38394,13 +38399,15 @@ var render = function() {
                   _vm.$set(_vm.category, "name", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "description" } }, [
+            _vm._v("Descripción")
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -38428,11 +38435,7 @@ var render = function() {
                   _vm.$set(_vm.category, "description", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "description" } }, [
-              _vm._v("Descripción")
-            ])
+            })
           ])
         ]),
         _vm._v(" "),
@@ -38557,6 +38560,8 @@ var render = function() {
       _c("div", { staticClass: "card-body" }, [
         _c("form", [
           _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-label-group" }, [
               _c("input", {
                 directives: [
@@ -38584,47 +38589,13 @@ var render = function() {
                     _vm.$set(_vm.sale, "product_id", $event.target.value)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")])
+              })
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
-            _c("div", { staticClass: "form-label-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.sale.date,
-                    expression: "sale.date"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "",
-                  placeholder: "Fecha",
-                  required: "required",
-                  autofocus: "autofocus"
-                },
-                domProps: { value: _vm.sale.date },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.sale, "date", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "date" } }, [_vm._v("Fecha")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "quantity" } }, [_vm._v("Cantidad")]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-label-group" }, [
               _c("input", {
                 directives: [
@@ -38652,13 +38623,13 @@ var render = function() {
                     _vm.$set(_vm.sale, "quantity", $event.target.value)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "quantity" } }, [_vm._v("Cantidad")])
+              })
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "price" } }, [_vm._v("Precio")]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-label-group" }, [
               _c("input", {
                 directives: [
@@ -38686,9 +38657,7 @@ var render = function() {
                     _vm.$set(_vm.sale, "price", $event.target.value)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "price" } }, [_vm._v("Precio")])
+              })
             ])
           ]),
           _vm._v(" "),
@@ -38741,8 +38710,6 @@ var render = function() {
                     [
                       _c("td", [_vm._v(_vm._s(elemento.product))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(elemento.date))]),
-                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(elemento.quantity))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(elemento.price))])
@@ -38784,8 +38751,6 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Producto")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad")]),
         _vm._v(" "),
@@ -39000,6 +38965,8 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c("form", [
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39027,13 +38994,13 @@ var render = function() {
                   _vm.$set(_vm.product, "name", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "email" } }, [_vm._v("Descripción")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39060,13 +39027,13 @@ var render = function() {
                   _vm.$set(_vm.product, "description", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "email" } }, [_vm._v("Descripción")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "category" } }, [_vm._v("Categoria")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39093,13 +39060,13 @@ var render = function() {
                   _vm.$set(_vm.product, "category_id", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "category" } }, [_vm._v("Categoria")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "price" } }, [_vm._v("Precio")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39126,13 +39093,13 @@ var render = function() {
                   _vm.$set(_vm.product, "price", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "price" } }, [_vm._v("Precio")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "supplier" } }, [_vm._v("Proveedor")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39159,9 +39126,7 @@ var render = function() {
                   _vm.$set(_vm.product, "supplier_id", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "supplier" } }, [_vm._v("Proveedor")])
+            })
           ])
         ]),
         _vm._v(" "),
@@ -39297,6 +39262,8 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c("form", [
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Proveedor")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39324,9 +39291,7 @@ var render = function() {
                   _vm.$set(_vm.supplier, "name", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "name" } }, [_vm._v("Proveedor")])
+            })
           ])
         ]),
         _vm._v(" "),
@@ -39685,6 +39650,8 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c("form", [
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "username" } }, [_vm._v("Usuario")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39712,13 +39679,15 @@ var render = function() {
                   _vm.$set(_vm.user, "username", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "username" } }, [_vm._v("Usuario")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "email" } }, [
+            _vm._v("Correo Electrónico")
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39745,15 +39714,13 @@ var render = function() {
                   _vm.$set(_vm.user, "email", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "email" } }, [
-              _vm._v("Correo Electrónico")
-            ])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "password" } }, [_vm._v("Contraseña")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39780,13 +39747,13 @@ var render = function() {
                   _vm.$set(_vm.user, "password", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "password" } }, [_vm._v("Contraseña")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "status" } }, [_vm._v("Activo")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39813,9 +39780,7 @@ var render = function() {
                   _vm.$set(_vm.user, "status", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "status" } }, [_vm._v("Activo")])
+            })
           ])
         ]),
         _vm._v(" "),
@@ -39956,6 +39921,8 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c("form", [
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "folio" } }, [_vm._v("Folio")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -39983,13 +39950,13 @@ var render = function() {
                   _vm.$set(_vm.sale, "saledetail_id", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "folio" } }, [_vm._v("Folio")])
+            })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "usuario" } }, [_vm._v("Usuario")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-label-group" }, [
             _c("input", {
               directives: [
@@ -40016,9 +39983,7 @@ var render = function() {
                   _vm.$set(_vm.sale, "user_id", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "usuario" } }, [_vm._v("Usuario")])
+            })
           ])
         ]),
         _vm._v(" "),

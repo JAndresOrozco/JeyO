@@ -7,27 +7,22 @@
             <div class="card-body">
             <form>
           <div class="form-group">
+          <label for="name">Nombre</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="sale.product_id" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus">
-              <label for="name">Nombre</label>
             </div>
           </div>
+         
           <div class="form-group">
-            <div class="form-label-group">
-              <input type="text" id="" v-model="sale.date" class="form-control" placeholder="Fecha" required="required" autofocus="autofocus">
-              <label for="date">Fecha</label>
-            </div>
-          </div>
-          <div class="form-group">
+          <label for="quantity">Cantidad</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="sale.quantity" class="form-control" placeholder="Cantidad" required="required" autofocus="autofocus">
-              <label for="quantity">Cantidad</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="price">Precio</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="sale.price" class="form-control" placeholder="Precio" required="required" autofocus="autofocus">
-              <label for="price">Precio</label>
             </div>
           </div>
            <input type="button" value="Guardar" class="btn btn-success" v-on:click="save">
@@ -45,7 +40,6 @@
                 <thead>
                   <tr>
                     <th>Producto</th>
-                    <th>Fecha</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
                   </tr>
@@ -53,7 +47,6 @@
                 <tbody>
                   <tr v-for="(elemento, index) in list" :key="elemento.id" v-on:click="load(elemento, index)">
                     <td>{{ elemento.product }}</td>
-                    <td>{{ elemento.date }}</td>
                     <td>{{ elemento.quantity }}</td>
                     <td>{{ elemento.price }}</td>
                 
@@ -83,7 +76,6 @@
             list: null,
             listProducts: null,
             sale: {
-                date: null,
                 quantity: null,
                 price: null,
                 product_id: null,
@@ -107,7 +99,7 @@
         },
         update: function() {
             let self = this;
-            axios.post("/detalleventas/update", { sale: this.sale, id: this.idx })
+            axios.post("/detalleventas/update", { sale: this.sale, id: this.idx, price: this.sale.price, quantity: this.sale.quantity, product_id: this.sale.product_id})
                 .then(response => {
                     swal('Actualizado correctamente');
                     console.log(response.data);
@@ -135,7 +127,6 @@
             console.log(elemento, index);
             this.idxLista = index;
             this.idx = elemento.id;
-            this.sale.date = elemento.date;
             this.sale.quantity = elemento.quantity;
             this.sale.price = elemento.price;
             this.sale.product_id = elemento.product_id;

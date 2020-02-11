@@ -6,15 +6,15 @@
             <div class="card-body">
             <form>
           <div class="form-group">
+          <label for="name">Nombre</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="category.name" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus">
-              <label for="name">Nombre</label>
             </div>
           </div>
           <div class="form-group">
+          <label for="description">Descripción</label>
             <div class="form-label-group">
               <input type="text" id="" v-model="category.description" class="form-control" placeholder="Descripción" required="required" autofocus="autofocus">
-              <label for="description">Descripción</label>
             </div>
           </div>
            <input type="button" value="Guardar" class="btn btn-success" v-on:click="save">
